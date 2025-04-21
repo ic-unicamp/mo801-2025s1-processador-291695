@@ -31,3 +31,23 @@ Seu código deve ser sintetizávelvel, isso significa que deve ser possível ger
 Você deve entregar o seu projeto através do Github Classroom, bastando fazer um *commit* e *push* do seu código. os testes serão executados automaticamente. A data limite para entrega é o último dia do mês.
 
 Seu código será avaliado com mais testes do que os que estão dispnoíveis aqui.
+
+## Problemas identificados na execução
+
+1. PC = PC + 4: O próximo endereço é calculado, ele chega a ser armazenado em ALUResult, mas, por algum motivo, não reflete em PC. Os sinais para propagação desse sinal para PC estão todos corretos e ResultSrc[1:0] está correto também, mas acaba que o registrador do PC nunca recebe o valor e o próximo endereço nunca é chamado.
+2. Para a operação BEQ, a unidade de controle precisa "receber" o sinal zero como 1 para definir pcwrite = 1. Porém, precisaria de mais um ciclo para concluir essa operação e Zero recebe 1 na hora em que o estado muda para Fetch.
+
+## Execução correta
+
+Como não é possível checar a execução completa de um conjunto de instruções, apenas validei algumas operações que estão listadas a seguir:
+
+1. addi (7d008113)
+2. add (000000b3)
+3. beq (00000a63)
+4. lw (00002083) - tentei validar essa operação, mas não consigo ter certeza dos resultados e ciclos, apenas dos sinais de controle.
+
+## Dificuldades gerais
+
+1. Ainda não entendi ao certo como fica a memória de instruções e dados. Entendo que o professor disponibilizou um módulo referente a memória que tem as funcionalidades de leitura e escrita e que isso deveria bastar, mas não estou entendendo como conectar os sinais de address, data_in e data_out de forma coerente no circuito. Criei um módulo individual para cada parte do processador usando a nomenclatura disponibilizada no livro. De forma geral, ficou clara a conexão de fios e módulos, exceto desses relacionados à memória.
+
+2. Não entendi também como deveria funcionar os tempos de ciclos, tentei seguir de forma fiel a descrição e ilustrações do livro, mas ainda assim, para algumas instruções, como expliquei acima, pareceu faltar um ciclo para completar a operação.
