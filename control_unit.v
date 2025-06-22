@@ -37,6 +37,7 @@ module controlUnit(
     always @(posedge clk) begin
         if (!resetn)
             state = FETCH;
+        // Rodolfo: Você devia ter a nova atribuição de state aqui num else.
     end
 
     always @(posedge clk) begin
@@ -61,7 +62,7 @@ module controlUnit(
                 resultsrc = 2'b00;
                 pcwrite = 1'b1;
                 aluctrl = 3'b010;
-                state = DECODE;
+                state = DECODE; // Rodolfo: não pode atribuir a state em dois always distintos.
             end
             DECODE: begin // decode
                 $display("Decode - opcode: %b", opcode);
